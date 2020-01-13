@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="./js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mui.min.js"></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+
+			.content__body-main{
+			   position: absolute;
+				   top: 0;
+				   bottom: 0;
+				   left: 0;
+				   right: 0;
+				   height: 80%;
+				   margin: auto;
+				   
+				   text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">标题</h1>
+		</header>
+		<div class="mui-content" id="app">
+			<div class="content__body-main">
+				 <component-num-input v-model="value" :max="5" :min="0"></component-num-input>
+				 <div >
+				 	value:{{value}}
+				 </div>
+			</div>
+			<!-- 这是自定义组件的内容 -->
+			<script type="text/x-template" id="template-num-input">
+				 <div>
+					<input type="text" :value="currentValue" @change="handleChange()" />
+					<button type="button"  @click="handleDown">-</button>
+					<button type="button" @click="handleUp">+</button>
+				</div>
+			</script>
+		</div>
+		<script type="text/javascript">
+			
+			function isValueNumber(value){
+				return Number.parseFloat(value+"");
+			}
+			
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					value: 5
+				},
+				components:{
+					'component-num-input':{
+						template:"#template-num-input",
+						props:{
+							max:{
+								type:Number,
+								default:Infinity
+							},
+							min:{
+								type:Number,
+								default: - Infinity
+							}, 
+							value:{
+								type:Number, 
+								default:0
+							}
+						},
+						data:function(){
+							return {
+								currentValue:this.value
+							}
+						},
+						methods:{
+							handleDown:function(){
+								if (this.currentValue <= this.min ) return; 
+								this.currentValue -= 1; 
+							}, 
+							handleUp:function(){
+								if (this.currentValue >= this.max) return;
+								this.currentValue += 1;
+							},
+							goTest:function(){
+								console.log("~~~");
+							},
+							updateValue:function(val){
+								
+								
+								if(val > this.max) val = this.max; 
+								if(val < this.min) val = this.min; 
+								this.currentValue = val;
+								
+							},
+							handleChange:function(){
+								
+								console.log("改变了");
+								
+								var val = event.target.value.trim(); 
+								
+								var max = this.max;
+								var  min = this.min; 
+								if(isValueNumber(val)){
+									val = +val; 
+									this.currentValue = val; 
+									
+									if(val > max ){
+										this.currentValue = max ; 
+									}else if (val < min){
+										
+										this.currentValue = min
+									}
+								}else{
+									
+									event.target.value = this.currentValue;
+								}
+								
+							}
+						},
+						// 监听 value currentValue 发生变化时候进行更新
+						watch:{
+							currentValue:function(val){
+								this.$emit('input',val);
+								this.$emit('on-change',val)
+							},
+							value:function(val){
+								this.updateValue(val);
+							}
+						},
+						mounted:function(){
+							this.updateValue();
+						}
+						
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

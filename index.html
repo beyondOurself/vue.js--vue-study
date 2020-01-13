@@ -1,16 +1,63 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <title></title>
-    <script src="js/mui.min.js"></script>
-    <link href="css/mui.min.css" rel="stylesheet"/>
-    <script type="text/javascript" charset="utf-8">
-      	mui.init();
-    </script>
-</head>
-<body>
-	
-</body>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/mui.min.js"></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			body {
+				padding: 20px;
+			}
+
+			.btn-list {
+				display: flex;
+				flex-direction: column;
+			}
+
+			.btn-list>div {
+				margin-top: 10px;
+				padding: 10px 0;
+				font-size: 20px;
+				font-weight: 700;
+				border-radius: 5px;
+				text-align: center;
+			}
+
+			.btn-list>div>button {
+				width: 100%;
+				background-color: lightblue;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="btn-list">
+			<div>
+				<h4>测试</h4>
+				<button type="button" id="btn">test.html</button>
+			</div>
+			<div>
+				<h4>自定义组件数字输入框</h4>
+				<button type="button" id="btn">num-input.html</button>
+			</div>
+			<div>
+				<h4>使用 v-model</h4>
+				<button type="button" id="btn">componet-vmodel.html</button>
+			</div>
+		</div>
+		<script type="text/javascript">
+			document.body.addEventListener("tap", function() {
+				try {
+					var tar = event.target,
+						tarTxt = tar.innerText;;
+					if (typeof tarTxt === "string") {
+						mui.openWindow(tarTxt, tarTxt, {})
+					}
+				} catch (e) {
+					throw new Error(" index.html 跳转出错误啦~");
+				}
+			})
+		</script>
+	</body>
 </html>

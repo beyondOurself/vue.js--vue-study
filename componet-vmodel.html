@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+	<script src="./js/vue.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+    </script>
+	<style>
+		body{
+			padding: 18px;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">标题</h1>
+	</header>
+	<div class="mui-content">
+		<div id="app">
+			<div >
+				 <my-componet v-model="total" ></my-componet>
+				 <div >
+				 	{{total}}
+				 </div> 
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+		
+		Vue.component('my-componet',{
+			template:"<button @click='handelClick'>+1</button>",
+			data:function(){
+				return {
+					counter: 0
+				}
+			},
+			methods:{
+				handelClick:function(){
+					this.counter ++; 
+					this.$emit('input',this.counter); 
+				}
+			}
+			
+			
+		})
+		
+		var vm = new Vue({
+			el:"#app",
+			data:{
+				total:0
+			},
+			mounted:function(){
+				
+			},
+			methods:{
+				
+			}
+		}) 
+	</script>
+</body>
+</html>
