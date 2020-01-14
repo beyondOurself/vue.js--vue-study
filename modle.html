@@ -8,6 +8,10 @@
     <script src="js/mui.min.js"></script>
     <link href="css/mui.min.css" rel="stylesheet"/>
 	<style>
+		#app{
+			text-align: center;
+			margin-top: 20px;
+		}
 	</style>
 </head>
 <body>
@@ -16,20 +20,24 @@
 		<h1 class="mui-title">标题</h1>
 	</header>
 	<div class="mui-content" id="app">
-		
+		 <componetn-my></componetn-my>
 	</div>
-	
+	<script type="text/x-template" id="tempID">
+		<div>
+			组件内容
+		</div>
+	</script>
 	<script type="text/javascript">
 		var vm = new Vue({
 			el:"#app",
 			data:{
 			},
-			mounted:function(){
-				
-			},
-			methods:{
-				
+			components:{
+				'componetn-my':{
+					template:"#tempID"
+				}
 			}
+			
 		}) 
 	</script>
 </body>
